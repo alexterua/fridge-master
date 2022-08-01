@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Booking extends Model
+{
+    use HasFactory;
+
+    const STATUS_WAITING = 0;
+    const STATUS_PAID = 1;
+
+    protected $table = 'bookings';
+    protected $fillable = [
+        'status',
+        'count_of_blocks',
+        'product_volume',
+        'storage_temperature',
+        'expiration_date',
+        'user_id'
+    ];
+}
