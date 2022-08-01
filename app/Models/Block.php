@@ -20,4 +20,9 @@ class Block extends Model
         'is_free',
         'premis_id'
     ];
+
+    public function premis()
+    {
+        return $this->belongsTo(Premis::class, 'premis_id', 'id', 'premises');
+    }
 }
