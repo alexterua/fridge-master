@@ -11,4 +11,9 @@ class Location extends Model
 
     protected $table = 'locations';
     protected $fillable = ['name'];
+
+    public function premises()
+    {
+        return $this->hasMany(Premis::class);
+    }
 }

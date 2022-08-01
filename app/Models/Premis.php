@@ -19,4 +19,9 @@ class Premis extends Model
     {
         return $this->belongsTo(Location::class, 'location_id', 'id', 'locations');
     }
+
+    public function blocks()
+    {
+        return $this->hasMany(Block::class);
+    }
 }
