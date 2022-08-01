@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Block;
+use App\Models\Location;
+use App\Models\Premis;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,11 +18,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $locations = [
+            'Wilmington (North Carolina)',
+            'Portland (Oregon)',
+            'Toronto',
+            'Warsaw',
+            'Valencia',
+            'Shanghai',
+        ];
+
+        foreach ($locations as $location) {
+            Location::factory()->create(
+                [
+                    'name' => $location,
+                ],
+            );
+        }
+
+        Premis::factory(10)->create();
+        Block::factory(20)->create();
     }
 }
