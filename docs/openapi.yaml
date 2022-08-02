@@ -1,0 +1,251 @@
+openapi: "3.0.3"
+info: 
+  title: "Fridge master"
+  version: "1.0.0"
+servers:
+  - url: http://localhost:8080/api/v1/
+    description: "Development server"
+paths:
+  /locations:
+    get:
+      description: "Return list of available locations with information about the number of free blocks in each"
+      summary: Get all locations
+      tags:
+        - Locations
+      operationId: getAllLocations
+      responses:
+        '200':
+          description: "List of locations response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Locations"
+        default:
+          description: "Any other status than 200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+  /locations/{location_id}:
+    get:
+      description: "Return location by identifier"
+      summary: Get location by identifier
+      tags:
+        - Locations
+      operationId: getLocationById
+      parameters:
+        - name: location_id
+          in: path
+          required: true
+          description: "identifier of location"
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        '200':
+          description: "One location response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Location"
+        default:
+          description: "Any other status than 200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    
+  /locations/{location_id}/bookings:          
+    post:
+      description: "Save booking info"
+      summary: Save booking
+      tags:
+        - Bookings
+      operationId: createBooking
+      parameters:
+        - name: location_id
+          in: path
+          required: true
+          description: "identifier of location"
+          schema:
+            type: integer
+            format: int64
+            example: 2
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+      responses:
+        '200':
+          description: "Save booking info response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+        default:
+          description: "Any other status than 200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  
+  /bookings:
+    get:
+      description: "Return list of bookings"
+      summary: Get all bookings
+      tags:
+        - Bookings
+      operationId: getAllBookings
+      responses:
+        '200':
+          description: "List of bookings response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Bookings"
+        default:
+          description: "Any other status than 200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+    
+                
+  /bookings/{booking_id}:
+    get:
+      description: "Return booking by identifier"
+      summary: Get booking by identifier
+      tags:
+        - Bookings
+      operationId: getBookingById
+      parameters:
+        - name: booking_id
+          in: path
+          required: true
+          description: "identifier of booking"
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        '200':
+          description: "One booking response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+        default:
+          description: "Any other status than 200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      
+            
+components:
+  schemas:
+  
+    Location:
+      type: object
+      required:
+        - id
+        - name
+        - countOfFreeBlocks
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: "Toronto"
+        countOfFreeBlocks:
+          type: integer
+          example: 3
+        created_at:
+          type: string
+          format: date-time
+          example: "2022-05-30 20:59:40"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2022-06-30 21:38:10"
+          
+    Locations:
+      type: array
+      items:
+        $ref: "#/components/schemas/Location"
+        
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+          
+    Booking:
+      type: object
+      required:
+        - id
+        - status
+        - count_od_blocks
+        - product_volume
+        - storage_temperature
+        - expiration_date
+        - access_code
+        - user_id
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        status:
+          type: integer
+          example: 0
+        count_od_blocks:
+          type: integer
+          example: 5
+        product_volume:
+          type: integer
+          example: 50
+        storage_temperature:
+          type: integer
+          example: -10
+        expiration_date:
+          type: integer
+          example: 1
+        storage_cost:
+          type: integer
+          example: 2400
+        access_code:
+          type: string
+          example: "g2ffg5earj4e"
+        user_id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: "2022-05-30 20:59:40"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2022-06-30 21:38:10"
+          
+    Bookings:
+      type: array
+      items:
+        $ref: "#/components/schemas/Booking"
