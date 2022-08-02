@@ -12,6 +12,8 @@ class Block extends Model
     const IS_FREE = 1;
     const IS_BUSY = 0;
 
+    const DEFAULT_PRODUCT_VOLUME = 2;
+
     protected $table = 'blocks';
     protected $fillable = [
         'length',

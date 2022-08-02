@@ -19,6 +19,9 @@ class Booking extends Model
         'product_volume',
         'storage_temperature',
         'expiration_date',
+        'storage_cost',
+        'storage_cost',
+        'access_code',
         'user_id'
     ];
 

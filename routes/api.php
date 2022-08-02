@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/locations', [IndexController::class, 'getAllLocations']);
+Route::get('/locations/{location_id}', [IndexController::class, 'getLocationById']);
+Route::post('/locations/{location_id}/calculate', [IndexController::class, 'calculate']);
+Route::post('/locations/{location_id}/bookings', [IndexController::class, 'createBooking']);
